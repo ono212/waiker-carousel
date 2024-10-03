@@ -67,7 +67,12 @@ export default function Carousel(slides) {
 
       if (i === this.currentSlide) button.classList.add('selected');
 
-      button.onclick = () => this.setCurrentSlide(i);
+      button.onclick = () => {
+        this.clearAutoFlipSlide(); // 전환 간격 초기화
+        this.autoFlipSlide();
+
+        this.setCurrentSlide(i);
+      };
       indicatorContainer.appendChild(button);
       indicatorButtons.push(button);
     }
@@ -79,16 +84,24 @@ export default function Carousel(slides) {
     const $nextButton = document.querySelector('.next-button');
 
     $prevButton.onclick = () => {
+      this.clearAutoFlipSlide(); // 전환 간격 초기화
+
       if (this.currentSlide === 0) this.setCurrentSlide(totalSlides - 1);
       else {
         const nextSlide = (this.currentSlide - 1) % totalSlidesWithClone;
         this.setCurrentSlide(nextSlide);
       }
+
+      this.autoFlipSlide();
     };
 
     $nextButton.onclick = () => {
+      this.clearAutoFlipSlide(); // 전환 간격 초기화
+
       const nextSlide = (this.currentSlide + 1) % totalSlidesWithClone;
       this.setCurrentSlide(nextSlide);
+
+      this.autoFlipSlide();
     };
   };
 
