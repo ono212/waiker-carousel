@@ -13,6 +13,8 @@ export default function Carousel(slides) {
 
   const indicatorButtons = [];
 
+  this.isPlaying = true;
+
   this.setCurrentSlide = (nextSlide) => {
     this.currentSlide = nextSlide;
     this.updateSlidePosition();
@@ -76,6 +78,13 @@ export default function Carousel(slides) {
       indicatorContainer.appendChild(button);
       indicatorButtons.push(button);
     }
+
+    // 재생/일시정지 버튼
+    this.playPauseButton = document.createElement('button');
+    this.playPauseButton.classList.add('play-pause-button');
+    this.playPauseButton.innerHTML = '⏸'; // 처음에는 일시정지 상태로 시작
+    this.playPauseButton.onclick = () => this.togglePlayPause();
+    indicatorContainer.appendChild(this.playPauseButton);
   };
 
   // 슬라이드 이동 버튼 생성 함수
@@ -103,6 +112,19 @@ export default function Carousel(slides) {
 
       this.autoFlipSlide();
     };
+  };
+
+  // 재생/일시정지 토글 함수
+  this.togglePlayPause = () => {
+    if (this.isPlaying) {
+      this.clearAutoFlipSlide();
+      this.playPauseButton.innerHTML = '▶';
+    } else {
+      this.autoFlipSlide(); // 슬라이드 전환 재개
+      this.playPauseButton.innerHTML = '⏸';
+    }
+
+    this.isPlaying = !this.isPlaying;
   };
 
   this.render = () => {

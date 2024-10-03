@@ -11,8 +11,13 @@ const slides = [
 
 new SlideSpeedControl({
   onChange: (speed) => {
-    carousel.clearAutoFlipSlide(); // 기존 슬라이드 전환 중지
-    carousel.autoFlipSlide(speed); // 새 속도로 슬라이드 전환 시작
+    carousel.clearAutoFlipSlide();
+
+    if (!carousel.isPlaying) {
+      carousel.togglePlayPause();
+    }
+
+    carousel.autoFlipSlide(speed);
   },
 });
 
