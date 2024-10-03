@@ -11,9 +11,12 @@ export default function Carousel(slides) {
 
   this.currentSlide = 0;
 
+  const indicatorButtons = [];
+
   this.setCurrentSlide = (nextSlide) => {
     this.currentSlide = nextSlide;
     this.updateSlidePosition();
+    this.updateIndicator();
   };
 
   // 자동 슬라이드 전환 함수
@@ -39,7 +42,34 @@ export default function Carousel(slides) {
         this.currentSlide = 0;
         $carouselSlide.style.transition = 'none';
         $carouselSlide.style.transform = `translateX(0%)`; // 첫 번째 슬라이드로 이동
+        this.updateIndicator();
       }, 300);
+    }
+  };
+
+  // 인디케이터 상태를 업데이트하는 함수
+  this.updateIndicator = () => {
+    indicatorButtons.forEach((button, index) => {
+      button.classList.toggle(
+        'selected',
+        index === (this.currentSlide === totalSlides ? 0 : this.currentSlide),
+      ); // 선택된 인디케이터 업데이트
+    });
+  };
+
+  // 페이지네이션 인디케이터
+  const createIndicator = () => {
+    const indicatorContainer = document.querySelector('.indicator-container');
+
+    for (let i = 0; i < totalSlides; i++) {
+      const button = document.createElement('button');
+      button.classList.add('indicator-button');
+
+      if (i === this.currentSlide) button.classList.add('selected');
+
+      button.onclick = () => this.setCurrentSlide(i);
+      indicatorContainer.appendChild(button);
+      indicatorButtons.push(button);
     }
   };
 
@@ -59,6 +89,7 @@ export default function Carousel(slides) {
       $carouselSlide.insertAdjacentHTML('beforeend', slideHTML);
     });
 
+    createIndicator(); // 인디케이터 생성
     this.autoFlipSlide();
   };
 
