@@ -73,6 +73,25 @@ export default function Carousel(slides) {
     }
   };
 
+  // 슬라이드 이동 버튼 생성 함수
+  const createNavigationButtons = () => {
+    const $prevButton = document.querySelector('.prev-button');
+    const $nextButton = document.querySelector('.next-button');
+
+    $prevButton.onclick = () => {
+      if (this.currentSlide === 0) this.setCurrentSlide(totalSlides - 1);
+      else {
+        const nextSlide = (this.currentSlide - 1) % totalSlidesWithClone;
+        this.setCurrentSlide(nextSlide);
+      }
+    };
+
+    $nextButton.onclick = () => {
+      const nextSlide = (this.currentSlide + 1) % totalSlidesWithClone;
+      this.setCurrentSlide(nextSlide);
+    };
+  };
+
   this.render = () => {
     // 슬라이드 개수만큼 각각 태그 추가
     slides.forEach((slideSrc, index) => {
@@ -90,6 +109,7 @@ export default function Carousel(slides) {
     });
 
     createIndicator(); // 인디케이터 생성
+    createNavigationButtons(); // 슬라이드 이동 버튼 생성
     this.autoFlipSlide();
   };
 

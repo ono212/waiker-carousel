@@ -59,3 +59,29 @@
   width: 1rem;
   background-color: #70f149;
 }
+
+.slide-button {
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: wheat;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.carousel:hover .slide-button {
+  background-color: rgba(176, 176, 176, 0.5);
+}
+.prev-button {
+  left: 15px;
+}
+.next-button {
+  right: 15px;
+}
