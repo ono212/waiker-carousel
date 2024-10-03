@@ -1,0 +1,22 @@
+{
+  "name": "waiker-carousel",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --write src/**/*.js",
+    "dev": "live-server --open=src/index.html"
+  },
+  "keywords": [],
+  "author": "bbungchi",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.10.0",
+    "live-server": "^1.2.2",
+    "prettier": "^3.3.3"
+  }
+}
