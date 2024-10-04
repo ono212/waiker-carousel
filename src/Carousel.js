@@ -13,7 +13,9 @@ export default function Carousel(slides) {
   let startX = 0,
     startY = 0,
     endX = 0,
-    endY = 0;
+    endY = 0,
+    isDragging = false;
+  const swipeThreshold = 50; // 스와이프 임계값
 
   const indicatorButtons = [];
 
@@ -166,7 +168,6 @@ export default function Carousel(slides) {
       const swipeDistanceY = endY - startY;
       const isHorizontalSwipe =
         Math.abs(swipeDistanceX) > Math.abs(swipeDistanceY); // 수평 스와이프인지 여부
-      const swipeThreshold = 50; // 스와이프 임계값
 
       if (isHorizontalSwipe) {
         if (swipeDistanceX >= swipeThreshold) {
@@ -182,9 +183,46 @@ export default function Carousel(slides) {
     $carousel.addEventListener('touchend', handleTouchEnd);
   };
 
-  // 초기 렌더링, 터치 이벤트 등록
+  // 마우스 드래그 이벤트 핸들러
+  const handleMouseEvents = () => {
+    const handleMouseDown = (event) => {
+      startX = event.clientX;
+      startY = event.clientY;
+      isDragging = true;
+      event.preventDefault();
+    };
+
+    const handleMouseMove = (event) => {
+      if (!isDragging) return;
+      endX = event.clientX;
+      endY = event.clientY;
+    };
+
+    const handleMouseUp = () => {
+      if (!isDragging) return;
+      const swipeDistanceX = endX - startX;
+      const swipeDistanceY = endY - startY;
+
+      const angle = Math.abs(swipeDistanceY / swipeDistanceX);
+
+      // 이동 거리가 50px이상 && 이동 각도가 45도 미만일 때만 드래그
+      if (Math.abs(swipeDistanceX) > swipeThreshold && angle < 1) {
+        this.navigateSlide(swipeDistanceX > 0 ? 'prev' : 'next');
+      }
+
+      isDragging = false;
+    };
+
+    $carousel.addEventListener('mousedown', handleMouseDown);
+    $carousel.addEventListener('mousemove', handleMouseMove);
+    $carousel.addEventListener('mouseup', handleMouseUp);
+    $carousel.addEventListener('mouseleave', handleMouseUp); // 캐러셀 바깥으로 나갈 때 드래그 종료하도록
+  };
+
+  // 초기 렌더링 및 터치 이벤트, 드래그 이벤트 등록
   this.render();
   handleTouchEvents();
+  handleMouseEvents();
 
   // 페이지가 닫힐 때 타이머 제거
   window.addEventListener('beforeunload', this.clearAutoFlipSlide);
