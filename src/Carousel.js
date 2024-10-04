@@ -1,4 +1,5 @@
 export default function Carousel(slides) {
+  const $carousel = document.querySelector('.carousel');
   const $carouselSlide = document.querySelector('.carousel-slide');
 
   const totalSlides = slides.length;
@@ -14,6 +15,11 @@ export default function Carousel(slides) {
   const indicatorButtons = [];
 
   this.isPlaying = true;
+
+  let startX = 0;
+  let endX = 0;
+  let startY = 0;
+  let endY = 0;
 
   this.setCurrentSlide = (nextSlide) => {
     this.currentSlide = nextSlide;
@@ -95,8 +101,18 @@ export default function Carousel(slides) {
     $prevButton.onclick = () => {
       this.clearAutoFlipSlide(); // 전환 간격 초기화
 
-      if (this.currentSlide === 0) this.setCurrentSlide(totalSlides - 1);
-      else {
+      if (this.currentSlide === 0) {
+        // 현재 슬라이드가 첫 번째 슬라이드일 때
+        this.currentSlide = totalSlides; // 마지막 슬라이드로 이동
+        $carouselSlide.style.transition = 'none'; // transition을 제거하여 순간이동 효과
+        $carouselSlide.style.transform = `translateX(-${(this.currentSlide * 100) / totalSlidesWithClone}%)`;
+
+        setTimeout(() => {
+          $carouselSlide.style.transition = 'transform 0.3s ease'; // 다시 transition 추가
+          const nextSlide = totalSlides - 1; // 마지막 실제 슬라이드로 이동
+          this.setCurrentSlide(nextSlide);
+        }, 300);
+      } else {
         const nextSlide = (this.currentSlide - 1) % totalSlidesWithClone;
         this.setCurrentSlide(nextSlide);
       }
@@ -150,6 +166,58 @@ export default function Carousel(slides) {
 
   // 초기 렌더링
   this.render();
+
+  // 터치 시작 이벤트 핸들러
+  const handleTouchStart = (event) => {
+    startX = event.touches[0].clientX; // 터치 시작 위치 기록
+    startY = event.touches[0].clientY; // 터치 시작 위치 기록
+  };
+
+  // 터치 이동 이벤트 핸들러
+  const handleTouchMove = (event) => {
+    endX = event.touches[0].clientX; // 터치 이동 위치 기록
+    endY = event.touches[0].clientY; // 터치 이동 위치 기록
+  };
+
+  // 터치 종료 이벤트 핸들러
+  const handleTouchEnd = () => {
+    const swipeDistanceX = endX - startX;
+    const swipeDistanceY = endY - startY;
+
+    if (Math.abs(swipeDistanceX) > Math.abs(swipeDistanceY)) {
+      if (startX < endX && endX - startX >= 50) {
+        // 오른쪽으로 스와이프
+        this.clearAutoFlipSlide();
+
+        if (this.currentSlide === 0) {
+          this.currentSlide = totalSlides; // 마지막 슬라이드로 이동
+          $carouselSlide.style.transition = 'none';
+          $carouselSlide.style.transform = `translateX(-${(this.currentSlide * 100) / totalSlidesWithClone}%)`;
+
+          setTimeout(() => {
+            $carouselSlide.style.transition = 'transform 0.3s ease';
+            const nextSlide = totalSlides - 1;
+            this.setCurrentSlide(nextSlide);
+          }, 300);
+        } else {
+          const nextSlide = (this.currentSlide - 1) % totalSlidesWithClone;
+          this.setCurrentSlide(nextSlide);
+        }
+        this.autoFlipSlide();
+      } else if (startX > endX && startX - endX >= 50) {
+        // 왼쪽으로 스와이프
+        this.clearAutoFlipSlide();
+        const nextSlide = (this.currentSlide + 1) % totalSlidesWithClone;
+        this.setCurrentSlide(nextSlide);
+        this.autoFlipSlide();
+      }
+    }
+  };
+
+  // 터치 이벤트 리스너 등록
+  $carousel.addEventListener('touchstart', handleTouchStart);
+  $carousel.addEventListener('touchmove', handleTouchMove);
+  $carousel.addEventListener('touchend', handleTouchEnd);
 
   // 이벤트 해제 (페이지가 닫힐 때 타이머 제거)
   window.addEventListener('beforeunload', () => {
