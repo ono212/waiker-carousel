@@ -2,28 +2,61 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: 60vh;
 }
 
 .carousel-slide {
   display: flex;
   flex-direction: row;
   align-items: center;
-  transition: transform 0.3s ease;
   height: 100%;
 }
 
 .slide-container {
   width: 100%;
   height: 100%;
+  cursor: grab;
 }
 
-.speed-control-input {
+.slide-container:active {
+  cursor: grabbing;
+}
+
+.slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-height: 100%;
+}
+
+.input-container {
+  display: flex;
+  width: 50%;
+  padding-bottom: 2rem;
+  margin: 0 auto;
+}
+
+.delay-control-input {
   margin-right: 8px;
+  padding: 15px;
+  border: 2px solid #1e6b7b;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e6b7b;
+  background-color: aliceblue;
+  transition: 0.25s;
+  width: 70%;
 }
 
-.speed-control-btn {
-  background-color: aqua;
+.delay-control-input:focus {
+  border-color: #87cefa;
+  outline: none;
+  background-color: #f0f8ff; /* 포커스 시 색상 변경 */
+}
+
+.delay-control-btn {
+  flex-shrink: 0;
   padding: 15px 30px;
   border-radius: 15px;
   text-decoration: none;
@@ -33,7 +66,7 @@
   color: #1e6b7b;
 }
 
-.speed-control-btn:hover {
+.delay-control-btn:hover {
   background-color: #87cefa;
 }
 
@@ -46,24 +79,26 @@
   width: 100%;
   z-index: 10;
   position: absolute;
-  bottom: 1rem;
+  bottom: 4%;
 }
+
 .indicator-button {
+  width: 0.375rem;
   height: 0.375rem;
   border-radius: 9999px;
   transition: all 0.3s;
-  width: 0.375rem;
   background-color: #d6ddf6;
   cursor: pointer;
 }
-.selected {
+
+.selected.selected {
   width: 1rem;
   background-color: #70f149;
 }
 
 .slide-button {
   position: absolute;
-  top: 50%;
+  top: 45%;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -73,22 +108,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
 .carousel:hover .slide-button {
   background-color: rgba(176, 176, 176, 0.5);
 }
+
 .prev-button {
   left: 15px;
 }
+
 .next-button {
   right: 15px;
 }
 
 .play-pause-button {
-  all: unset;
   margin-left: 10px;
   width: 1.8rem;
   height: 1.8rem;
@@ -102,6 +139,83 @@
   font-size: 1.2rem;
   transition: background-color 0.3s ease;
 }
+
 .play-pause-button:hover {
   color: #70f149;
+}
+
+/* 테블릿 화면에 맞게 조정 */
+@media (max-width: 1024px) {
+  .carousel {
+    height: 50vh; /* 화면 높이의 50% */
+  }
+
+  .indicator-button {
+    width: 0.5rem;
+  }
+
+  .slide-button,
+  .prev-button,
+  .next-button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .play-pause-button {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+/* 모바일 화면에 맞게 조정 */
+@media (max-width: 768px) {
+  .carousel {
+    height: 40vh; /* 화면 높이의 40% */
+  }
+
+  .delay-control-btn,
+  .delay-control-input {
+    font-size: 14px;
+    padding: 10px;
+
+    .indicator-button {
+      width: 0.3rem;
+    }
+
+    .slide-button .prev-button,
+    .next-button {
+      width: 40px;
+      height: 40px;
+    }
+
+    .play-pause-button {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
+}
+
+/* 모바일 세로 (해상도 ~ 479px) */
+@media all and (max-width: 479px) {
+  .carousel {
+    height: 30vh;
+  }
+
+  .indicator-button {
+    width: 0.2rem;
+  }
+
+  .slide-button,
+  .prev-button,
+  .next-button {
+    width: 35px;
+    height: 35px;
+    font-size: 0.7rem;
+  }
+
+  .play-pause-button {
+    width: 1rem;
+    height: 1rem;
+    font-size: 0.7rem;
+  }
 }
