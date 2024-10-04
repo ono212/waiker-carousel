@@ -1,4 +1,4 @@
-import { getClientCoordinate } from '../utils/dom.js';
+import { getClientCoordinate } from '../utils/coordinateUtils.js';
 
 const SWIPE_DISTANCE_THRESHOLD_IN_PIXEL = 50; // 스와이프 임계값
 const DEFAULT_SLIDE_SPEED = 55_000; // 기본 슬라이드 속도
