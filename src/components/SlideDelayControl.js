@@ -16,9 +16,9 @@ export function SlideDelayControl({ transitionSpeed, delay, onChange }) {
 
   $button.addEventListener('click', () => {
     const newTransitionSpeed =
-      parseInt($transitionInput.value * 1000) || this.transitionSpeed;
+      Number($transitionInput.value * 1000) || this.transitionSpeed;
 
-    const newDelaySpeed = parseInt($delayInput.value, 10) * 1000 || this.delay;
+    const newDelaySpeed = Number($delayInput.value) * 1000 || this.delay;
 
     onChange(newTransitionSpeed, newDelaySpeed);
 
