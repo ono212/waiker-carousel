@@ -18,7 +18,7 @@ export function Carousel({
   this.isPlaying = true;
   this.delay = delay;
 
-  let autoSlideTimeout = null;
+  let slideDelayTimeout = null;
   let lastSlideTimeout = null;
 
   const indicatorButtons = [];
@@ -30,7 +30,6 @@ export function Carousel({
       (this.currentSlide * 100) / totalSlidesWithClone
     }%)`;
 
-    // 마지막 슬라이드에서 첫 번째 슬라이드로 부드럽게 전환
     if (this.currentSlide === totalSlides) {
       lastSlideTimeout = setTimeout(() => {
         this.currentSlide = 0;
@@ -50,21 +49,21 @@ export function Carousel({
   };
 
   // 슬라이드 자동 전환
-  this.autoFlipSlide = () => {
-    this.clearAutoFlipSlide();
+  this.startSlideDelay = () => {
+    this.clearSlideDelay();
 
     // 슬라이드 전환이 끝나면 딜레이 후 다음 슬라이드로 이동
-    autoSlideTimeout = setTimeout(() => {
+    slideDelayTimeout = setTimeout(() => {
       if (this.isPlaying)
         this.setCurrentSlide((this.currentSlide + 1) % totalSlidesWithClone);
     }, this.delay);
   };
 
   // 슬라이드 자동 전환 타이머 제거
-  this.clearAutoFlipSlide = () => {
-    if (autoSlideTimeout) {
-      clearTimeout(autoSlideTimeout);
-      autoSlideTimeout = null;
+  this.clearSlideDelay = () => {
+    if (slideDelayTimeout) {
+      clearTimeout(slideDelayTimeout);
+      slideDelayTimeout = null;
     }
   };
 
@@ -97,7 +96,7 @@ export function Carousel({
 
       button.onclick = () => {
         // 기존에 걸려있던 타이머 해제
-        this.clearAutoFlipSlide();
+        this.clearSlideDelay();
         this.clearLastSlideTimeout();
 
         this.setCurrentSlide(i);
@@ -120,7 +119,7 @@ export function Carousel({
     this.isPlaying = !this.isPlaying;
     this.playPauseButton.innerHTML = this.isPlaying ? '⏸' : '▶';
 
-    if (this.isPlaying) this.autoFlipSlide();
+    if (this.isPlaying) this.startSlideDelay();
   };
 
   // 네비게이션 버튼 생성
@@ -135,7 +134,7 @@ export function Carousel({
   // 슬라이드 이동
   this.navigateSlide = (direction) => {
     // 타이머 해제
-    this.clearAutoFlipSlide();
+    this.clearSlideDelay();
     this.clearLastSlideTimeout();
 
     if (direction === 'prev') {
@@ -175,21 +174,21 @@ export function Carousel({
 
     createIndicator();
     createNavigationButtons();
-    this.autoFlipSlide();
+    this.startSlideDelay();
   };
 
   this.render(); // 초기 렌더링
 
   carouselSlide.addEventListener('transitionend', (event) => {
     // 트랜지션이 끝나면 delay를 시작
-    if (event.propertyName === 'transform') this.autoFlipSlide();
+    if (event.propertyName === 'transform') this.startSlideDelay();
   });
 
   addDragAndTouchEventHandlers(carouselSlide, this.navigateSlide); // 터치 이벤트, 드래그 이벤트 등록
 
   // 페이지가 닫힐 때 타이머 제거
   window.addEventListener('beforeunload', () => {
-    this.clearAutoFlipSlide();
+    this.clearSlideDelay();
     this.clearLastSlideTimeout();
   });
 }
