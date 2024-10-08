@@ -9,14 +9,29 @@
   </head>
   <body>
     <div id="app">
-      <div class="input-container">
-        <input
-          class="transition-control-input"
-          type="number"
-          placeholder="전환 속도(초)"
-          min="1"
-        />
-        <button class="delay-control-btn">설정</button>
+      <div class="control-container">
+        <div class="field-container">
+          <div class="input-container">
+            <label for="transition-control-input">전환 속도(초)</label>
+            <input
+              class="transition-control-input"
+              id="transition-control-input"
+              type="number"
+              min="1"
+            />
+          </div>
+          <div class="input-container">
+            <label for="delay-control-input">슬라이드 간격(초)</label>
+            <input
+              class="delay-control-input"
+              id="delay-control-input"
+              type="number"
+              min="1"
+            />
+          </div>
+        </div>
+
+        <button class="control-btn">설정</button>
       </div>
       <div class="carousel">
         <div class="carousel-slide"></div>
