@@ -17,6 +17,7 @@ export function Carousel({
   this.currentSlide = 0;
   this.isPlaying = true;
   this.delay = delay;
+  this.transitionSpeed = transitionSpeed;
 
   let slideDelayTimeout = null;
   let lastSlideTimeout = null;
