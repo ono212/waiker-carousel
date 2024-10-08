@@ -63,13 +63,13 @@
 
 .field-container input {
   padding: 0.75rem;
-  border-radius: 15px;
+  border-radius: 1rem;
   border: none;
   background-color: #000000;
   transition: 0.25s;
   font-size: 1rem;
   font-weight: 400;
-  color: #000000;
+  color: #ffffff;
 }
 
 .field-container input::placeholder {
@@ -83,12 +83,12 @@
 }
 
 .control-btn {
-  min-width: 45px;
+  min-width: 1.5rem;
   flex: 0 0 10%;
   align-self: flex-start;
   margin-top: auto;
   padding: 0.5rem;
-  border-radius: 15px;
+  border-radius: 1rem;
   transition: 0.25s;
   text-align: center;
   font-weight: 600;
@@ -163,7 +163,7 @@
   justify-content: center;
   width: 1.8rem;
   height: 1.8rem;
-  margin-left: 10px;
+  margin-left: 0.75rem;
   color: white;
   background-color: rgba(176, 176, 176, 0.5);
   border-radius: 50%;
@@ -189,8 +189,8 @@
   .slide-button,
   .prev-button,
   .next-button {
-    width: 60px;
-    height: 60px;
+    width: 3.75rem;
+    height: 3.75rem;
   }
   .play-pause-button {
     width: 2rem;
@@ -207,7 +207,7 @@
   .field-container input,
   .field-container label,
   .control-btn {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .indicator-button {
@@ -235,7 +235,7 @@
   .field-container input,
   .field-container label,
   .control-btn {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .indicator-button {
