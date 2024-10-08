@@ -148,7 +148,7 @@ export function Carousel({
         lastSlideTimeout = setTimeout(() => {
           carouselSlide.style.transition = `transform ${transitionSpeed}ms ease`;
           this.setCurrentSlide(totalSlides - 1);
-        }, 300);
+        });
       } else {
         this.setCurrentSlide((this.currentSlide - 1) % totalSlidesWithClone);
       }
