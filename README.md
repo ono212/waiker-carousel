@@ -1,3 +1,8 @@
+> [!NOTE]  
+> 
+> 과제 제출 후 추가적으로 작업 후 [PR](https://github.com/ono212/waiker-carousel/pull/1)을 작성했습니다.
+
+
 # waiker-carousel
 ## 프로젝트 구조
 
@@ -57,14 +62,3 @@ https://github.com/user-attachments/assets/d9b35c8b-87f6-4212-a939-5509212a9359
 ### 5. 반응형
 
 https://github.com/user-attachments/assets/23400878-c3b5-4cc6-9662-131ad0417ddb
-
-
-
-
-
-
-
-
-
-
-
