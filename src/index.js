@@ -9,21 +9,25 @@ const slides = [
   './images/05-kbs.webp',
 ];
 
+const carousel = new Carousel({
+  slides,
+  carouselSlide: document.querySelector('.carousel-slide'),
+  delay: 1000,
+  transitionSpeed: 2000,
+});
+
 new SlideDelayControl({
-  onChange: (delay) => {
-    carousel.clearAutoFlipSlide();
+  transitionSpeed: carousel.transitionSpeed,
+  delay: carousel.delay,
+  onChange: (newTransitionSpeed, newDelaySpeed) => {
+    carousel.clearSlideDelay();
 
     if (!carousel.isPlaying) {
       carousel.togglePlayPause();
     }
 
-    carousel.autoFlipSlide(delay);
+    carousel.transitionSpeed = newTransitionSpeed;
+    carousel.delay = newDelaySpeed;
+    carousel.startSlideDelay();
   },
-});
-
-const carousel = new Carousel({
-  slides,
-  carouselSlide: document.querySelector('.carousel-slide'),
-  delay: 4000,
-  transitionSpeed: 300,
 });

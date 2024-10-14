@@ -29,45 +29,73 @@
   max-height: 100%;
 }
 
+.control-container {
+  display: flex;
+  width: 60%;
+  padding: 2rem 0;
+  margin: 0 auto;
+  gap: 1rem;
+  color: #000000;
+}
+
+.field-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
 .input-container {
   display: flex;
-  width: 50%;
-  padding-bottom: 2rem;
-  margin: 0 auto;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.3rem;
 }
 
-.delay-control-input {
-  margin-right: 8px;
-  padding: 15px;
-  border: 2px solid #1e6b7b;
-  border-radius: 15px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #1e6b7b;
-  background-color: aliceblue;
+.field-container label {
+  font-size: 1rem;
+}
+
+.field-container input {
+  padding: 0.75rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: #000000;
   transition: 0.25s;
-  width: 70%;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #ffffff;
 }
 
-.delay-control-input:focus {
-  border-color: #87cefa;
+.field-container input::placeholder {
+  color: #a9a9a9;
+  opacity: 0.7;
+}
+
+.field-container input:focus {
   outline: none;
-  background-color: #f0f8ff; /* 포커스 시 색상 변경 */
+  background-color: #70f149;
 }
 
-.delay-control-btn {
-  flex-shrink: 0;
-  padding: 15px 30px;
-  border-radius: 15px;
-  text-decoration: none;
-  font-weight: 600;
+.control-btn {
+  min-width: 1.5rem;
+  flex: 0 0 10%;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 0.5rem;
+  border-radius: 1rem;
   transition: 0.25s;
-  background-color: aliceblue;
-  color: #1e6b7b;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #000000;
+  cursor: pointer;
 }
 
-.delay-control-btn:hover {
-  background-color: #87cefa;
+.control-btn:hover {
+  background-color: #70f149;
+  color: #000000;
 }
 
 .indicator-container {
@@ -99,8 +127,8 @@
 .slide-button {
   position: absolute;
   top: 45%;
-  width: 50px;
-  height: 50px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   color: wheat;
   background-color: transparent;
@@ -118,23 +146,23 @@
 }
 
 .prev-button {
-  left: 15px;
+  left: 2rem;
 }
 
 .next-button {
-  right: 15px;
+  right: 2rem;
 }
 
 .play-pause-button {
-  margin-left: 10px;
-  width: 1.8rem;
-  height: 1.8rem;
-  color: white;
-  background-color: rgba(176, 176, 176, 0.5);
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-left: 0.75rem;
+  color: white;
+  background-color: rgba(176, 176, 176, 0.5);
+  border-radius: 50%;
   cursor: pointer;
   font-size: 1.2rem;
   transition: background-color 0.3s ease;
@@ -147,7 +175,7 @@
 /* 테블릿 화면에 맞게 조정 */
 @media (max-width: 1024px) {
   .carousel {
-    height: 50vh; /* 화면 높이의 50% */
+    height: 50vh;
   }
 
   .indicator-button {
@@ -157,10 +185,9 @@
   .slide-button,
   .prev-button,
   .next-button {
-    width: 60px;
-    height: 60px;
+    width: 3.75rem;
+    height: 3.75rem;
   }
-
   .play-pause-button {
     width: 2rem;
     height: 2rem;
@@ -170,28 +197,30 @@
 /* 모바일 화면에 맞게 조정 */
 @media (max-width: 768px) {
   .carousel {
-    height: 40vh; /* 화면 높이의 40% */
+    height: 40vh;
   }
 
-  .delay-control-btn,
-  .delay-control-input {
-    font-size: 14px;
-    padding: 10px;
+  .field-container input,
+  .field-container label,
+  .control-btn {
+    font-size: 0.875rem;
+  }
 
-    .indicator-button {
-      width: 0.3rem;
-    }
+  .indicator-button {
+    width: 0.3rem;
+  }
 
-    .slide-button .prev-button,
-    .next-button {
-      width: 40px;
-      height: 40px;
-    }
+  .prev-button,
+  .next-button {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 
-    .play-pause-button {
-      width: 1.2rem;
-      height: 1.2rem;
-    }
+  .play-pause-button {
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+    padding: 0.2rem;
   }
 }
 
@@ -201,15 +230,20 @@
     height: 30vh;
   }
 
-  .indicator-button {
-    width: 0.2rem;
+  .field-container input,
+  .field-container label,
+  .control-btn {
+    font-size: 0.75rem;
   }
 
-  .slide-button,
+  .indicator-button {
+    width: 0.35rem;
+  }
+
   .prev-button,
   .next-button {
-    width: 35px;
-    height: 35px;
+    width: 2.25rem;
+    height: 2.25rem;
     font-size: 0.7rem;
   }
 
