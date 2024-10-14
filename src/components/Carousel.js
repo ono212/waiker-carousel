@@ -26,7 +26,7 @@ export function Carousel({
 
   // 슬라이드 위치 업데이트
   this.updateSlidePosition = () => {
-    carouselSlide.style.transition = `transform ${transitionSpeed}ms ease`;
+    carouselSlide.style.transition = `transform ${this.transitionSpeed}ms ease`;
     carouselSlide.style.transform = `translateX(-${
       (this.currentSlide * 100) / totalSlidesWithClone
     }%)`;
@@ -37,7 +37,7 @@ export function Carousel({
         carouselSlide.style.transition = 'none';
         carouselSlide.style.transform = `translateX(0%)`;
         this.updateIndicator();
-      }, transitionSpeed);
+      }, this.transitionSpeed);
     }
   };
 
@@ -147,7 +147,7 @@ export function Carousel({
         }%)`;
 
         lastSlideTimeout = setTimeout(() => {
-          carouselSlide.style.transition = `transform ${transitionSpeed}ms ease`;
+          carouselSlide.style.transition = `transform ${this.transitionSpeed}ms ease`;
           this.setCurrentSlide(totalSlides - 1);
         });
       } else {
